@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.github.leviosacz.javadb.common.Error;
+
 /**
  * AbstractCache implements a reference counting cache.
  */

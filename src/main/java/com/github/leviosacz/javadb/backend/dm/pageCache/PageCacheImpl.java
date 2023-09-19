@@ -11,6 +11,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.github.leviosacz.javadb.backend.common.AbstractCache;
 import com.github.leviosacz.javadb.backend.dm.page.Page;
 import com.github.leviosacz.javadb.backend.dm.page.PageImpl;
+import com.github.leviosacz.javadb.backend.utils.Panic;
+import com.github.leviosacz.javadb.common.Error;
 
 public class PageCacheImpl extends AbstractCache<Page> implements PageCache {
 
@@ -70,6 +72,10 @@ public class PageCacheImpl extends AbstractCache<Page> implements PageCache {
         } catch (IOException e) {
             Panic.panic(e);
         }
+    }
+
+    public int getPageNumber() {
+        return pageNumbers.intValue();
     }
 
     /**

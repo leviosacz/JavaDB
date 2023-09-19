@@ -7,6 +7,10 @@ import java.nio.channels.FileChannel;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.github.leviosacz.javadb.backend.utils.Panic;
+import com.github.leviosacz.javadb.backend.utils.Parser;
+import com.github.leviosacz.javadb.common.Error;
+
 public class TransactionManagerImpl implements TransactionManager {
 
     // XID file header length

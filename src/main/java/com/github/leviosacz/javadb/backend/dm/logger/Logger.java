@@ -7,6 +7,10 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import com.github.leviosacz.javadb.backend.utils.Panic;
+import com.github.leviosacz.javadb.backend.utils.Parser;
+import com.github.leviosacz.javadb.common.Error;
+
 public interface Logger {
 
     void log(byte[] data);

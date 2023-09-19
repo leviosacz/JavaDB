@@ -10,11 +10,14 @@ import java.util.Map.Entry;
 import com.google.common.primitives.Bytes;
 
 import com.github.leviosacz.javadb.backend.common.SubArray;
+import com.github.leviosacz.javadb.backend.dm.dataItem.DataItem;
 import com.github.leviosacz.javadb.backend.dm.logger.Logger;
 import com.github.leviosacz.javadb.backend.dm.page.Page;
 import com.github.leviosacz.javadb.backend.dm.page.PageX;
 import com.github.leviosacz.javadb.backend.dm.pageCache.PageCache;
 import com.github.leviosacz.javadb.backend.tm.TransactionManager;
+import com.github.leviosacz.javadb.backend.utils.Panic;
+import com.github.leviosacz.javadb.backend.utils.Parser;
 
 public class Recover {
 
@@ -24,21 +27,12 @@ public class Recover {
     private static final int REDO = 0;
     private static final int UNDO = 1;
 
-    // [LogType] [XID] [UID] [OldRaw] [NewRaw]
+    // updateLog: [LogType] [XID] [UID] [OldRaw] [NewRaw]
     private static final int OF_TYPE = 0;
     private static final int OF_XID = OF_TYPE+1;
     private static final int OF_UPDATE_UID = OF_XID+8;
     private static final int OF_UPDATE_RAW = OF_UPDATE_UID+8;
 
-    // insertLog: [LogType] [XID] [Pgno] [Offset] [Raw]
-    static class InsertLogInfo {
-        long xid;
-        int pgno;
-        short offset;
-        byte[] raw;
-    }
-
-    // updateLog: [LogType] [XID] [UID] [OldRaw] [NewRaw]
     static class UpdateLogInfo {
         long xid;
         int pgno;
@@ -46,6 +40,17 @@ public class Recover {
         byte[] oldRaw;
         byte[] newRaw;
     }
+
+    // insertLog: [LogType] [XID] [Pgno] [Offset] [Raw]
+    private static final int OF_INSERT_PGNO = OF_XID+8;
+    private static final int OF_INSERT_OFFSET = OF_INSERT_PGNO+4;
+    private static final int OF_INSERT_RAW = OF_INSERT_OFFSET+2;
+
+    static class InsertLogInfo {
+        long xid;
+        int pgno;
+        short offset;
+        byte[] raw;
 
     public static void recover(TransactionManager tm, Logger lg, PageCache pc) {
         System.out.println("Recovering...");

@@ -3,6 +3,7 @@ package com.github.leviosacz.javadb.backend.dm.page;
 import java.util.Arrays;
 
 import com.github.leviosacz.javadb.backend.dm.pageCache.PageCache;
+import com.github.leviosacz.javadb.backend.utils.RandomUtil;
 
 /**
  * Specially manage the first page of the database file
