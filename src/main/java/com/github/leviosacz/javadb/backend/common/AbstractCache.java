@@ -123,6 +123,7 @@ public abstract class AbstractCache<T> {
      * Fetch when the resource is not in the cache
      */
     protected abstract T getForCache(long key) throws Exception;
+
     /**
      * Writeback when resources are evicted from the cache
      */
