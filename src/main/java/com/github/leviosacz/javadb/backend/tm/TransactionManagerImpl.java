@@ -98,11 +98,11 @@ public class TransactionManagerImpl implements TransactionManager {
         } catch (IOException e1) {
             Panic.panic(Error.BadXIDFileException);
         }
-        if(fileLen < XID_HEADER_LENGTH) {
+        if(fileLen < XID_HEADER_SIZE) {
             Panic.panic(Error.BadXIDFileException);
         }
 
-        ByteBuffer buf = ByteBuffer.allocate(XID_HEADER_LENGTH);
+        ByteBuffer buf = ByteBuffer.allocate(XID_HEADER_SIZE);
         try {
             fc.position(0);
             fc.read(buf);
@@ -118,7 +118,7 @@ public class TransactionManagerImpl implements TransactionManager {
 
     // Return the transaction's location in the xid file based on its xid
     private long getXidPosition(long xid) {
-        return LEN_XID_HEADER_LENGTH + (xid-1)*XID_FIELD_SIZE;
+        return LEN_XID_HEADER_SIZE + (xid-1)*XID_FIELD_SIZE;
     }
 
     // Update the status of transaction with xid to status
