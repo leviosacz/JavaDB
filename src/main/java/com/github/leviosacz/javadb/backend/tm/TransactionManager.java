@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 public interface TransactionManager {
+
     long begin();
     void commit(long xid);
     void abort(long xid);
